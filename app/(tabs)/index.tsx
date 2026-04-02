@@ -7,7 +7,7 @@ import { cn } from '~/lib/cn';
 import { useTrackerStore } from '~/store/tracker';
 import { RegionId, Country, Power } from '~/store/types';
 import { PointSheetModal } from '~/components/ts/PointSheetModal';
-import { usePointStore } from '~/store';
+import { useAppStore, usePointStore } from '~/store';
 import { computeRegionScore } from '~/lib/gameCalculations';
 
 export default function Index() {
@@ -34,14 +34,25 @@ export default function Index() {
     });
   };
 
+  const currentScore = useAppStore((state) => state.data.currentScore);
+  const updateCurrentScore = useAppStore((state) => state.updateCurrentScore);
+
   return (
     <View className="flex-1 px-4">
       <SectionList
         ListHeaderComponent={
           <View className="mb-4 rounded-2xl p-4">
             <Text variant={'heading'} color={'primary'}>
-              Punti Potenziali: 3
+              Punti Attuali: {currentScore}
             </Text>
+
+            <Pressable
+              className="mt-4 rounded-2xl bg-blue-500 px-4 py-2"
+              onPress={() => updateCurrentScore(1)}>
+              <Text variant={'label'} color={'white'}>
+                Incrementa punti (esempio)
+              </Text>
+            </Pressable>
           </View>
         }
         stickySectionHeadersEnabled
