@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useCallback } from 'react';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetBackdrop, BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { convertToRGBA } from '~/lib/utils';
 
@@ -8,16 +8,28 @@ interface SheetModalProps {
   onClose?: () => void;
   onOpen?: () => void;
   snapPoints?: string[];
+  index?: number;
   children?: React.ReactNode;
 }
 
-const SheetModal = ({ visible, onClose, onOpen, snapPoints, children }: SheetModalProps) => {
+const SheetModal = ({ visible, onClose, onOpen, snapPoints, index = 0, children }: SheetModalProps) => {
   const { colors } = useColorScheme();
 
   const ref = useRef<BottomSheetModal>(null);
 
-  // Snap points interni
   const snapPointInternal = useMemo(() => snapPoints ?? ['25%', '50%', '75%', '95%'], [snapPoints]);
+
+  const renderBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+        pressBehavior="close"
+      />
+    ),
+    []
+  );
 
   // Callback interna per gestire apertura/chiusura
   const handleSheetChanges = useCallback(
@@ -42,19 +54,17 @@ const SheetModal = ({ visible, onClose, onOpen, snapPoints, children }: SheetMod
   return (
     <BottomSheetModal
       ref={ref}
-      index={1}
+      index={index}
       snapPoints={snapPointInternal}
       enableBlurKeyboardOnGesture
       keyboardBehavior="extend"
       keyboardBlurBehavior="restore"
       onChange={handleSheetChanges}
+      backdropComponent={renderBackdrop}
       handleIndicatorStyle={{
         backgroundColor: colors.foreground,
         height: 2,
         width: 40,
-      }}
-      containerStyle={{
-        backgroundColor: convertToRGBA(colors.background, 0.6),
       }}
       backgroundStyle={{ backgroundColor: colors.card }}>
       {children}

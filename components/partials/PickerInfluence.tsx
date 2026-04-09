@@ -16,12 +16,14 @@ interface PickerProps {
 }
 
 export const PickerInfluence = ({ min, max, value = min, className, onChange }: PickerProps) => {
-  const [selected, setSelected] = useState(value);
-
   const step = 32;
   const RANGE = 1; // [prev current next]
 
   const [baseValue, setBaseValue] = useState(value);
+
+  useEffect(() => {
+    setBaseValue(value);
+  }, [value]);
   const translateX = useSharedValue(0);
   const dragX = useSharedValue(0);
 
