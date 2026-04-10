@@ -1,22 +1,34 @@
-import { useState } from 'react';
+import { useState, useLayoutEffect, useMemo } from 'react';
 import { View, SectionList } from 'react-native';
-import { Text, Icon } from '~/components/ui';
-import { Button } from '~/components/nativewindui/Button';
-import { useTrackerStore } from '~/store/tracker';
-import { RegionId } from '~/store/types';
-import { CountryItem, RegionHeader, ScoreHeader, ResetConfirmModal } from '~/components/ts';
+import { useNavigation } from 'expo-router';
+import { useAppStore } from '~/store';
+import { CountryItem, RegionHeader, ScoreHeader, ResetConfirmModal, TrackerHeaderActions } from '~/components/ts';
 
 export default function Index() {
-  const { regions, countries, clearInfluences } = useTrackerStore();
+  const navigation = useNavigation();
+  const data = useAppStore((state) => state.data);
+  const clearInfluences = useAppStore((state) => state.clearInfluences);
 
-  const sections = Object.entries(regions).map(([regionId, region]) => ({
-    regionId: regionId as RegionId,
-    title: region.name,
-    data: countries.filter((c) => c.region === regionId),
-  }));
+  const sections = useMemo(
+    () =>
+      Object.entries(data.regionsById).map(([regionId, region]) => ({
+        regionId,
+        region,
+        data: Object.values(data.countriesByName).filter((c) => c.regionId === regionId),
+      })),
+    [data]
+  );
 
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
   const [resetModalVisible, setResetModalVisible] = useState(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TrackerHeaderActions onResetPress={() => setResetModalVisible(true)} />
+      ),
+    });
+  }, [navigation]);
 
   const handleToggle = (regionId: string) => {
     setExpandedSections((prev) =>
@@ -28,7 +40,7 @@ export default function Index() {
     <View className="flex-1 px-4">
       <SectionList
         ListHeaderComponent={<ScoreHeader />}
-        stickySectionHeadersEnabled
+        stickySectionHeadersEnabled={false}
         sections={sections}
         keyExtractor={(item) => item.name}
         extraData={expandedSections}
@@ -39,23 +51,12 @@ export default function Index() {
         showsVerticalScrollIndicator={false}
         renderSectionHeader={({ section }) => (
           <RegionHeader
-            title={section.title}
-            regionId={section.regionId}
+            region={section.region}
             isExpanded={expandedSections.includes(section.regionId)}
             onPress={() => handleToggle(section.regionId)}
           />
         )}
       />
-
-      <View className="mb-8 items-center px-4">
-        <Button
-          variant="secondary"
-          size="md"
-          onPress={() => setResetModalVisible(true)}>
-          <Icon name="refresh" type="MaterialCommunityIcons" size="body" />
-          <Text variant="label">Reset influenze</Text>
-        </Button>
-      </View>
 
       <ResetConfirmModal
         visible={resetModalVisible}

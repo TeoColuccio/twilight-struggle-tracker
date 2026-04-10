@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, Vibration } from 'react-native';
 import { Text, Stepper } from '~/components/ui';
 import { useAppStore } from '~/store';
 
@@ -25,8 +25,18 @@ export const ScoreHeader = () => {
       </View>
 
       <Stepper
-        minusButton={{ onPress: () => updateCurrentScore(-1) }}
-        plusButton={{ onPress: () => updateCurrentScore(1) }}
+        minusButton={{
+          onPress: () => {
+            Vibration.vibrate(20);
+            updateCurrentScore(-1);
+          },
+        }}
+        plusButton={{
+          onPress: () => {
+            Vibration.vibrate(20);
+            updateCurrentScore(1);
+          },
+        }}
       />
     </View>
   );

@@ -2,7 +2,6 @@ import { Tabs, Href } from 'expo-router';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { TabBarIcon } from '~/components/partials';
-import { TrackerHeaderActions } from '~/components/ts';
 
 type TabsProps = BottomTabNavigationOptions & {
   href?: Href | null;
@@ -26,7 +25,7 @@ export default function TabLayout() {
     tabBarIcon: ({ focused, size }) => (
       <TabBarIcon type="FontAwesome5" name="calculator" active={focused} />
     ),
-    headerRight: () => <TrackerHeaderActions />,
+
   } as TabsProps;
 
   const DONATE_OPTIONS = {

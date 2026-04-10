@@ -3,6 +3,7 @@ import { BottomSheetModal, BottomSheetBackdrop, BottomSheetBackdropProps } from 
 import { useColorScheme } from '~/lib/useColorScheme';
 import { convertToRGBA } from '~/lib/utils';
 
+
 interface SheetModalProps {
   visible: boolean;
   onClose?: () => void;
@@ -16,6 +17,7 @@ const SheetModal = ({ visible, onClose, onOpen, snapPoints, index = 0, children 
   const { colors } = useColorScheme();
 
   const ref = useRef<BottomSheetModal>(null);
+  const isPresented = useRef(false);
 
   const snapPointInternal = useMemo(() => snapPoints ?? ['25%', '50%', '75%', '95%'], [snapPoints]);
 
@@ -35,7 +37,10 @@ const SheetModal = ({ visible, onClose, onOpen, snapPoints, index = 0, children 
   const handleSheetChanges = useCallback(
     (index: number) => {
       if (index === -1) {
+        isPresented.current = false;
         onClose?.();
+      } else {
+        isPresented.current = true;
       }
     },
     [onClose]
@@ -46,7 +51,7 @@ const SheetModal = ({ visible, onClose, onOpen, snapPoints, index = 0, children 
     if (visible) {
       ref.current?.present();
       onOpen?.();
-    } else {
+    } else if (isPresented.current) {
       ref.current?.dismiss();
     }
   }, [visible]);

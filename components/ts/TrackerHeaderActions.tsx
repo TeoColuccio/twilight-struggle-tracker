@@ -2,13 +2,23 @@ import { View } from 'react-native';
 import { Icon } from '~/components/ui';
 import { Button } from '~/components/nativewindui/Button';
 
-export const TrackerHeaderActions = () => (
+interface TrackerHeaderActionsProps {
+  onResetPress?: () => void;
+}
+
+export const TrackerHeaderActions = ({ onResetPress }: TrackerHeaderActionsProps) => (
   <View className="mr-6 flex-row gap-4">
     <Button variant="plain" className="w-fit" size={'icon'} onPress={() => {}}>
       <Icon type="MaterialCommunityIcons" name="radioactive-circle" color="#ff0" />
     </Button>
+
     <Button variant="plain" className="w-fit" size={'icon'}>
       <Icon type="MaterialCommunityIcons" name="cog" />
     </Button>
+    
+    <Button variant="plain" className="w-fit" size={'icon'} onPress={onResetPress}>
+      <Icon type="MaterialCommunityIcons" name="trash-can" color="#ef4444" />
+    </Button>
+
   </View>
 );

@@ -1,30 +1,34 @@
-import { TSTType } from "@fzt/tst-domain";
-import { TSTCode } from "@fzt/tst-domain";
+import { TSTType, TSTCode, PowerType } from '@fzt/tst-domain';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { create } from "zustand";
+export type { TSTType, PowerType };
 
-export type AppState = {
-    data: TSTType;
-    commit: (next: TSTType) => void;
-    updateCurrentScore: (delta: number) => void;
+export type AppStore = {
+  data: TSTType;
+  setInfluence: (countryName: string, side: PowerType, value: number) => void;
+  clearInfluences: () => void;
+  updateCurrentScore: (delta: number) => void;
 };
 
-export type AppStore = AppState;
+export const useAppStore = create<AppStore>()(
+  persist(
+    (set) => ({
+      data: TSTCode.initData(),
 
-export const useAppStore = create<AppStore>()((set, get) => ({
-    data: {
-        currentScore: 5,
-        regionsById: {},
-    } as TSTType,
+      setInfluence: (countryName, side, value) =>
+        set((state) => ({ data: TSTCode.setInfluence(state.data, countryName, side, value) })),
 
-    commit: (next: TSTType) =>
-        set((state: AppState) => ({
-            data: next,
-        })),
+      clearInfluences: () => set({ data: TSTCode.initData() }),
 
-    updateCurrentScore: (delta: number) => {
-        const { data, commit } = get();
-        const next = TSTCode.updateCurrentScore(data, delta);
-        commit(next);
+      updateCurrentScore: (delta) =>
+        set((state) => ({ data: TSTCode.updateCurrentScore(state.data, delta) })),
+    }),
+    {
+      name: 'appStore',
+      storage: createJSONStorage(() => AsyncStorage),
+      partialize: (state) => ({ data: state.data }),
     }
-}));
+  )
+);
