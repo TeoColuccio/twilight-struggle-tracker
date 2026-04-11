@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { View, Pressable, Dimensions } from 'react-native';
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
@@ -16,14 +16,20 @@ interface PickerProps {
 }
 
 export const PickerInfluence = ({ min, max, value = min, className, onChange }: PickerProps) => {
-  const [selected, setSelected] = useState(value);
-
   const step = 32;
   const RANGE = 1; // [prev current next]
 
   const [baseValue, setBaseValue] = useState(value);
+  const baseValueRef = useRef(value);
+
   const translateX = useSharedValue(0);
   const dragX = useSharedValue(0);
+
+  useEffect(() => {
+    baseValueRef.current = value;
+    setBaseValue(value);
+    dragX.set(0);
+  }, [value]);
 
   const DRAG_RATIO = 0.05; // 0.25–0.4 range sano
 
@@ -36,26 +42,28 @@ export const PickerInfluence = ({ min, max, value = min, className, onChange }: 
   }, [baseValue, min, max]);
   // Gestione del drag
   const gesture = Gesture.Pan()
+    .activeOffsetX([-10, 10])
+    .failOffsetY([-5, 5])
     .onUpdate((e) => {
       dragX.set((value) => value + e.velocityX * DRAG_RATIO);
 
-      if (dragX.value <= -step && baseValue < max) {
+      if (dragX.value <= -step && baseValueRef.current < max) {
         dragX.set((value) => value + step);
-
-        setBaseValue((v) => v + 1);
+        baseValueRef.current += 1;
+        setBaseValue(baseValueRef.current);
         Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Light);
       }
 
-      if (dragX.value >= step && baseValue > min) {
+      if (dragX.value >= step && baseValueRef.current > min) {
         dragX.set((value) => value - step);
-        setBaseValue((v) => v - 1);
-
+        baseValueRef.current -= 1;
+        setBaseValue(baseValueRef.current);
         Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Light);
       }
     })
     .onEnd(() => {
       dragX.set(withSpring(0));
-      onChange(baseValue);
+      onChange(baseValueRef.current);
     })
     .runOnJS(true);
 
