@@ -4,15 +4,12 @@ import { Button } from '~/components/nativewindui/Button';
 
 interface TrackerHeaderActionsProps {
   onResetPress?: () => void;
+  onSettingsPress?: () => void;
 }
 
-export const TrackerHeaderActions = ({ onResetPress }: TrackerHeaderActionsProps) => (
+export const TrackerHeaderActions = ({ onResetPress, onSettingsPress }: TrackerHeaderActionsProps) => (
   <View className="mr-6 flex-row gap-4">
-    <Button variant="plain" className="w-fit" size={'icon'} onPress={() => {}}>
-      <Icon type="MaterialCommunityIcons" name="radioactive-circle" color="#ff0" />
-    </Button>
-
-    <Button variant="plain" className="w-fit" size={'icon'}>
+    <Button variant="plain" className="w-fit" size={'icon'} onPress={onSettingsPress}>
       <Icon type="MaterialCommunityIcons" name="cog" />
     </Button>
     

@@ -11,7 +11,7 @@ export const CountryItem = ({ country }: { country: CountryType }) => {
   return (
     <View className="flex-row items-center justify-center gap-6 p-2">
       <PickerInfluence
-        className={country.controlledBy === PowerType.USA && 'bg-blue-500'}
+        className={country.controlledBy === PowerType.USA ? 'bg-blue-500' : undefined}
         max={30}
         min={0}
         value={country.blueInfluence}
@@ -25,13 +25,13 @@ export const CountryItem = ({ country }: { country: CountryType }) => {
         )}>
         <Text
           variant={'label'}
-          className={cn(country.isBattleground ? 'text-foreground' : 'text-background')}>
+          className={cn(country.isBattleground ? 'text-white' : 'text-gray-900')}>
           {country.name}
         </Text>
       </View>
 
       <PickerInfluence
-        className={country.controlledBy === PowerType.URSS && 'bg-red-500'}
+        className={country.controlledBy === PowerType.URSS ? 'bg-red-500' : undefined}
         max={30}
         min={0}
         value={country.redInfluence}

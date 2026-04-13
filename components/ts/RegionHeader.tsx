@@ -1,7 +1,6 @@
 import { View, Pressable } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { Icon, Text } from '~/components/ui';
-import { cn } from '~/lib/cn';
 import { RegionType } from '@fzt/tst-domain';
 
 interface RegionHeaderProps {
@@ -20,12 +19,13 @@ export const RegionHeader = ({ region, isExpanded, onPress }: RegionHeaderProps)
   let bgColor = '';
   if (potentialScore > 0) bgColor = 'bg-blue-500';
   else if (potentialScore < 0) bgColor = 'bg-red-500';
+  const textColor = bgColor ? 'text-white' : 'text-foreground';
 
   return (
     <View className="mb-2 rounded-2xl bg-card">
       <Pressable className="flex-row items-center justify-between p-4" onPress={onPress}>
-        <View className={cn('rounded-full w-8 h-8 items-center justify-center', bgColor)}>
-          <Text variant="heading" className="text-white">
+        <View className={`rounded-full w-8 h-8 items-center justify-center ${bgColor}`} style={{ overflow: 'hidden' }}>
+          <Text variant="heading" className={textColor}>
             {displayScore}
           </Text>
         </View>
