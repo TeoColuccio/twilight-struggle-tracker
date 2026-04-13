@@ -2,7 +2,7 @@ import { useState, useLayoutEffect, useMemo } from 'react';
 import { View, SectionList } from 'react-native';
 import { useNavigation } from 'expo-router';
 import { useAppStore } from '~/store';
-import { CountryItem, RegionHeader, ScoreHeader, ResetConfirmModal, TrackerHeaderActions } from '~/components/ts';
+import { CountryItem, RegionHeader, ScoreHeader, ResetConfirmModal, SettingsModal, TrackerHeaderActions } from '~/components/ts';
 
 export default function Index() {
   const navigation = useNavigation();
@@ -21,11 +21,15 @@ export default function Index() {
 
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
   const [resetModalVisible, setResetModalVisible] = useState(false);
+  const [settingsModalVisible, setSettingsModalVisible] = useState(false);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TrackerHeaderActions onResetPress={() => setResetModalVisible(true)} />
+        <TrackerHeaderActions
+          onResetPress={() => setResetModalVisible(true)}
+          onSettingsPress={() => setSettingsModalVisible(true)}
+        />
       ),
     });
   }, [navigation]);
@@ -62,6 +66,11 @@ export default function Index() {
         visible={resetModalVisible}
         onConfirm={clearInfluences}
         onClose={() => setResetModalVisible(false)}
+      />
+
+      <SettingsModal
+        visible={settingsModalVisible}
+        onClose={() => setSettingsModalVisible(false)}
       />
     </View>
   );
