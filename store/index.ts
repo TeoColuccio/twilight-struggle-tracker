@@ -10,6 +10,7 @@ export type AppStore = {
   setInfluence: (countryName: string, side: PowerType, value: number) => void;
   clearInfluences: () => void;
   updateCurrentScore: (delta: number) => void;
+  toggleBattleground: (countryName: string) => void;
 };
 
 export const useAppStore = create<AppStore>()(
@@ -24,6 +25,9 @@ export const useAppStore = create<AppStore>()(
 
       updateCurrentScore: (delta) =>
         set((state) => ({ data: TSTCode.updateCurrentScore(state.data, delta) })),
+
+      toggleBattleground: (countryName) =>
+        set((state) => ({ data: TSTCode.toggleBattleground(state.data, countryName) })),
     }),
     {
       name: 'appStore',
