@@ -144,3 +144,11 @@
   --android-input: 55 55 57;
   --android-ring: 39 42 50;
 }
+
+@media (min-width: 768px) {
+  .web-content {
+    max-width: 65%;
+    align-self: center;
+    width: 100%;
+  }
+}

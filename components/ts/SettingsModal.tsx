@@ -16,7 +16,7 @@ export const SettingsModal = ({ visible, onClose }: Props) => {
     <SheetModal visible={visible} onClose={onClose} snapPoints={['30%']} index={0}>
       <BottomSheetView className="flex-1 px-6 pb-8 pt-4">
         <View className="items-center pb-6">
-          <Text variant="heading">Impostazioni</Text>
+          <Text variant="heading">Settings</Text>
         </View>
 
         <View className="flex-row items-center justify-between py-3 border-b border-b-foreground/10">
@@ -26,7 +26,7 @@ export const SettingsModal = ({ visible, onClose }: Props) => {
               name={isDarkColorScheme ? 'weather-night' : 'weather-sunny'}
               size="heading"
             />
-            <Text variant="body">{isDarkColorScheme ? 'Tema scuro' : 'Tema chiaro'}</Text>
+            <Text variant="body">{isDarkColorScheme ? 'Dark theme' : 'Light theme'}</Text>
           </View>
           <Switch
             value={isDarkColorScheme}
