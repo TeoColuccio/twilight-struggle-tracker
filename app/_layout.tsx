@@ -1,5 +1,4 @@
 import '../global.css';
-import 'expo-dev-client';
 import { ThemeProvider as NavThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -12,6 +11,8 @@ import { useColorScheme, useInitialAndroidBarSync } from '~/lib/useColorScheme';
 import { NAV_THEME } from '~/theme';
 import { useEffect } from 'react';
 
+SplashScreen.preventAutoHideAsync();
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -19,12 +20,13 @@ export {
 
 export default function RootLayout() {
   useInitialAndroidBarSync();
-  SplashScreen.preventAutoHideAsync();
 
   const { colorScheme, isDarkColorScheme } = useColorScheme();
 
   useEffect(() => {
-    async function init() {}
+    async function init() {
+      await SplashScreen.hideAsync();
+    }
 
     init();
   }, []);
