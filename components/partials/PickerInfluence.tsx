@@ -86,15 +86,15 @@ export const PickerInfluence = ({ min, max, value = min, className, onChange }: 
     <GestureDetector gesture={gesture}>
       <View
         style={{ overflow: 'hidden' }}
-        className={`h-10 w-20 flex-row items-center justify-between rounded-2xl border border-border px-2 ${className ?? ''}`}>
+        className={`h-10 w-20 web:h-14 web:w-32 flex-row items-center justify-between rounded-2xl border border-border px-2 web:px-4 ${className ?? ''}`}>
         <Pressable onPress={decrement} hitSlop={8}>
-          <Text className="text-base text-muted-foreground">‹</Text>
+          <Text className="text-base web:text-2xl text-muted-foreground">‹</Text>
         </Pressable>
         <Animated.View style={animatedStyle}>
-          <Text variant="body">{currentValue}</Text>
+          <Text variant="body" className="web:text-xl">{currentValue}</Text>
         </Animated.View>
         <Pressable onPress={increment} hitSlop={8}>
-          <Text className="text-base text-muted-foreground">›</Text>
+          <Text className="text-base web:text-2xl text-muted-foreground">›</Text>
         </Pressable>
       </View>
     </GestureDetector>

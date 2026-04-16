@@ -20,14 +20,28 @@ export const CountryItem = ({ country }: { country: CountryType }) => {
 
       <View
         className={cn(
-          'w-28 items-center justify-center rounded-2xl p-2',
+          'w-28 web:w-44 items-center justify-center rounded-2xl p-2 web:p-3',
           country.isBattleground ? 'bg-purple-950' : 'bg-yellow-100'
         )}>
         <Text
           variant={'label'}
-          className={cn(country.isBattleground ? 'text-white' : 'text-gray-900')}>
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.1}
+          className={cn('web:text-base', country.isBattleground ? 'text-white' : 'text-gray-900')}>
           {country.name}
         </Text>
+        <View className="mt-1 flex-row gap-1">
+          {Array.from({ length: country.stability }).map((_, i) => (
+            <View
+              key={i}
+              className={cn(
+                'h-2 w-2 web:h-3 web:w-3 rounded-full',
+                country.isBattleground ? 'bg-purple-300' : 'bg-amber-500'
+              )}
+            />
+          ))}
+        </View>
       </View>
 
       <PickerInfluence
