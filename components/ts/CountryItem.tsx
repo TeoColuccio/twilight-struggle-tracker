@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { View, Pressable } from 'react-native';
 import { PickerInfluence } from '~/components/partials';
 import { Text } from '~/components/ui';
@@ -6,7 +7,7 @@ import { useAppStore } from '~/store';
 import { CountryType, PowerType } from '@fzt/tst-domain';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export const CountryItem = ({ country }: { country: CountryType }) => {
+const CountryItemComponent = ({ country }: { country: CountryType }) => {
   const setInfluence = useAppStore((state) => state.setInfluence);
   const toggleBattleground = useAppStore((state) => state.toggleBattleground);
 
@@ -78,3 +79,5 @@ export const CountryItem = ({ country }: { country: CountryType }) => {
     </View>
   );
 };
+
+export const CountryItem = memo(CountryItemComponent);
