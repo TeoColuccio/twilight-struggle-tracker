@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useMemo } from 'react';
+import { useState, useLayoutEffect, useMemo, useCallback } from 'react';
 import { View, SectionList } from 'react-native';
 import { useNavigation } from 'expo-router';
 import { useAppStore } from '~/store';
@@ -9,7 +9,9 @@ export default function Index() {
   const data = useAppStore((state) => state.data);
   const clearInfluences = useAppStore((state) => state.clearInfluences);
 
-  const sections = useMemo(
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
+
+  const baseSections = useMemo(
     () =>
       Object.entries(data.regionsById).map(([regionId, region]) => ({
         regionId,
@@ -19,7 +21,14 @@ export default function Index() {
     [data]
   );
 
-  const [expandedSections, setExpandedSections] = useState<string[]>([]);
+  const sections = useMemo(
+    () =>
+      baseSections.map((section) => ({
+        ...section,
+        data: expandedSections.includes(section.regionId) ? section.data : [],
+      })),
+    [baseSections, expandedSections]
+  );
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
 
@@ -34,11 +43,11 @@ export default function Index() {
     });
   }, [navigation]);
 
-  const handleToggle = (regionId: string) => {
+  const handleToggle = useCallback((regionId: string) => {
     setExpandedSections((prev) =>
       prev.includes(regionId) ? prev.filter((id) => id !== regionId) : [...prev, regionId]
     );
-  };
+  }, []);
 
   return (
     <View className="flex-1 px-4 web-content">
@@ -47,11 +56,7 @@ export default function Index() {
         stickySectionHeadersEnabled={false}
         sections={sections}
         keyExtractor={(item) => item.name}
-        extraData={expandedSections}
-        renderItem={({ section, item }) => {
-          if (!expandedSections.includes(section.regionId)) return null;
-          return <CountryItem country={item} />;
-        }}
+        renderItem={({ item }) => <CountryItem country={item} />}
         showsVerticalScrollIndicator={false}
         renderSectionHeader={({ section }) => (
           <RegionHeader
