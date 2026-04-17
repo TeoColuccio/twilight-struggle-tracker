@@ -1,7 +1,7 @@
 import { View, Pressable } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { Icon, Text } from '~/components/ui';
-import { RegionType } from '@fzt/tst-domain';
+import { RegionType } from '@tdataroot/tst-domain';
 
 interface RegionHeaderProps {
   region: RegionType;

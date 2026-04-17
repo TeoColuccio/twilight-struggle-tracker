@@ -1,4 +1,4 @@
-import { TSTType, TSTCode, PowerType } from '@fzt/tst-domain';
+import { TSTType, TSTCode, PowerType } from '@tdataroot/tst-domain';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
