@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Twilight Struggle Tracker",
-    "slug": "tst-app",
+    "slug": "twilight-struggle-tracker",
     "version": "0.1.0",
     "scheme": "tstapp",
     "orientation": "portrait",
@@ -45,9 +45,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "e8ba2de5-a7e7-4799-9745-85b00c5aeee3"
+        "projectId": "cc33a984-8740-45c5-9e27-7103eb3ba31c"
       }
     },
-    "owner": "hitlocker"
+    "owner": "tdataroot"
   }
 }
