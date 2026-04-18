@@ -15,7 +15,7 @@
     "@react-navigation/native": "^7.1.8",
     "@rn-primitives/hooks": "^1.3.0",
     "@rn-primitives/slot": "^1.2.0",
-    "@tdataroot/tst-domain": "^0.2.1",
+    "@tdataroot/tst-domain": "^0.2.2",
     "class-variance-authority": "^0.7.1",
     "expo": "~54.0.30",
     "expo-constants": "~18.0.12",
