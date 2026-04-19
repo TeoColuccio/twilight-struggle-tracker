@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetModal } from '~/components/partials';
 import { Text, Icon } from '~/components/ui';
@@ -17,8 +17,8 @@ export const ResetConfirmModal = ({ visible, onConfirm, onClose }: Props) => {
   };
 
   return (
-    <SheetModal visible={visible} onClose={onClose} snapPoints={['50%']} index={0}>
-      <BottomSheetView className="flex-1 px-6 pb-8 pt-4">
+    <SheetModal visible={visible} onClose={onClose} enableDynamicSizing>
+      <BottomSheetView style={{ paddingBottom: Platform.select({ web: 120, default: 96 }) }} className="px-6 pt-4">
         <View className="items-center gap-3 pb-6">
           <View className="rounded-full bg-red-500/20 p-4">
             <Icon type="MaterialCommunityIcons" name="alert-circle-outline" size="display" color="#ef4444" />

@@ -28,13 +28,13 @@ export default function TabLayout() {
 
   } as TabsProps;
 
-  const DONATE_OPTIONS = {
-    ...SCREEN_OPTIONS,
-    title: 'Donate',
-    tabBarIcon: ({ focused, size }) => (
-      <TabBarIcon type="FontAwesome5" name="donate" active={focused} />
-    ),
-  } as TabsProps;
+  // const DONATE_OPTIONS = {
+  //   ...SCREEN_OPTIONS,
+  //   title: 'Donate',
+  //   tabBarIcon: ({ focused, size }) => (
+  //     <TabBarIcon type="FontAwesome5" name="donate" active={focused} />
+  //   ),
+  // } as TabsProps;
 
   return (
     <Tabs>

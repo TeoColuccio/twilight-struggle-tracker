@@ -18,12 +18,20 @@ function useColorScheme() {
         if (saved === 'light' || saved === 'dark') {
           setNativeWindColorScheme(saved);
           applyDomClass(saved);
-        } else if (Platform.OS !== 'web') {
+        } else if (Platform.OS === 'web') {
+          // Web default: light theme
+          setNativeWindColorScheme('light');
+          applyDomClass('light');
+        } else {
+          // Mobile default: dark theme
           setNativeWindColorScheme('dark');
           applyDomClass('dark');
         }
       } catch {
-        if (Platform.OS !== 'web') {
+        if (Platform.OS === 'web') {
+          setNativeWindColorScheme('light');
+          applyDomClass('light');
+        } else {
           setNativeWindColorScheme('dark');
           applyDomClass('dark');
         }

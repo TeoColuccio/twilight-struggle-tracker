@@ -19,6 +19,7 @@ export const SettingsModal = ({ visible, onClose }: Props) => {
           <Text variant="heading">Settings</Text>
         </View>
 
+        {/* Switch tema — disabilitato temporaneamente: web=light fisso, mobile=dark fisso
         <View className="flex-row items-center justify-between py-3 border-b border-b-foreground/10">
           <View className="flex-row items-center gap-3">
             <Icon
@@ -35,6 +36,7 @@ export const SettingsModal = ({ visible, onClose }: Props) => {
             thumbColor={colors.white}
           />
         </View>
+        */}
       </BottomSheetView>
     </SheetModal>
   );

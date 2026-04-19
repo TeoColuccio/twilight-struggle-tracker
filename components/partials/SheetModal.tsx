@@ -10,10 +10,11 @@ interface SheetModalProps {
   onOpen?: () => void;
   snapPoints?: string[];
   index?: number;
+  enableDynamicSizing?: boolean;
   children?: React.ReactNode;
 }
 
-const SheetModal = ({ visible, onClose, onOpen, snapPoints, index = 0, children }: SheetModalProps) => {
+const SheetModal = ({ visible, onClose, onOpen, snapPoints, index = 0, enableDynamicSizing = false, children }: SheetModalProps) => {
   const { colors } = useColorScheme();
 
   const ref = useRef<BottomSheetModal>(null);
@@ -59,8 +60,8 @@ const SheetModal = ({ visible, onClose, onOpen, snapPoints, index = 0, children 
   return (
     <BottomSheetModal
       ref={ref}
-      index={index}
-      snapPoints={snapPointInternal}
+      index={enableDynamicSizing ? 0 : index}
+      {...(enableDynamicSizing ? { enableDynamicSizing: true } : { snapPoints: snapPointInternal })}
       enableBlurKeyboardOnGesture
       keyboardBehavior="extend"
       keyboardBlurBehavior="restore"

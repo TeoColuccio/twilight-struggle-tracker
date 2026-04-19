@@ -9,9 +9,9 @@ interface TrackerHeaderActionsProps {
 
 export const TrackerHeaderActions = ({ onResetPress, onSettingsPress }: TrackerHeaderActionsProps) => (
   <View className="mr-6 flex-row gap-4">
-    <Button variant="plain" className="w-fit" size={'icon'} onPress={onSettingsPress}>
+    {/* <Button variant="plain" className="w-fit" size={'icon'} onPress={onSettingsPress}>
       <Icon type="MaterialCommunityIcons" name="cog" />
-    </Button>
+    </Button> */}
     
     <Button variant="plain" className="w-fit" size={'icon'} onPress={onResetPress}>
       <Icon type="MaterialCommunityIcons" name="trash-can" color="#ef4444" />

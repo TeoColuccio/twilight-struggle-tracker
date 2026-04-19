@@ -91,7 +91,7 @@ export const PickerInfluence = ({ min, max, value = min, className, onChange }: 
           <Text className="text-base web:text-2xl text-muted-foreground leading-none">‹</Text>
         </Pressable>
         <Animated.View style={animatedStyle} className="items-center justify-center">
-          <Text variant="body" className="web:text-xl leading-none">{currentValue}</Text>
+          <Text variant="body" className={`web:text-xl leading-none${currentValue === 0 ? ' text-muted-foreground' : ''}`}>{currentValue}</Text>
         </Animated.View>
         <Pressable onPress={increment} hitSlop={8} className="items-center justify-center">
           <Text className="text-base web:text-2xl text-muted-foreground leading-none">›</Text>
