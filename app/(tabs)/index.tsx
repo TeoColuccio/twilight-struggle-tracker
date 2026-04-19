@@ -2,7 +2,7 @@ import { useState, useLayoutEffect, useMemo, useCallback } from 'react';
 import { View, SectionList } from 'react-native';
 import { useNavigation } from 'expo-router';
 import { useAppStore } from '~/store';
-import { CountryItem, RegionHeader, ScoreHeader, ResetConfirmModal, SettingsModal, TrackerHeaderActions } from '~/components/ts';
+import { CountryItem, RegionHeader, ScoreHeader, ResetConfirmModal, SettingsModal, TrackerHeaderActions, SearchBar, CardOptionsPanel } from '~/components/ts';
 
 export default function Index() {
   const navigation = useNavigation();
@@ -10,6 +10,9 @@ export default function Index() {
   const clearInfluences = useAppStore((state) => state.clearInfluences);
 
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const isSearching = searchQuery.trim().length > 0;
 
   const baseSections = useMemo(
     () =>
@@ -21,14 +24,22 @@ export default function Index() {
     [data]
   );
 
-  const sections = useMemo(
-    () =>
-      baseSections.map((section) => ({
-        ...section,
-        data: expandedSections.includes(section.regionId) ? section.data : [],
-      })),
-    [baseSections, expandedSections]
-  );
+  const sections = useMemo(() => {
+    if (isSearching) {
+      const query = searchQuery.trim().toLowerCase();
+      return baseSections
+        .map((section) => ({
+          ...section,
+          data: section.data.filter((c) => c.name.toLowerCase().includes(query)),
+        }))
+        .filter((section) => section.data.length > 0);
+    }
+    return baseSections.map((section) => ({
+      ...section,
+      data: expandedSections.includes(section.regionId) ? section.data : [],
+    }));
+  }, [baseSections, expandedSections, searchQuery, isSearching]);
+
   const [resetModalVisible, setResetModalVisible] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
 
@@ -49,21 +60,39 @@ export default function Index() {
     );
   }, []);
 
+  const SearchBarComponent = (
+    <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
+  );
+
   return (
     <View className="flex-1 px-4 web-content">
       <SectionList
-        ListHeaderComponent={<ScoreHeader />}
+        ListHeaderComponent={
+          <>
+            <ScoreHeader />
+            <CardOptionsPanel />
+            {SearchBarComponent}
+          </>
+        }
         stickySectionHeadersEnabled={false}
         sections={sections}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => <CountryItem country={item} />}
         showsVerticalScrollIndicator={false}
         renderSectionHeader={({ section }) => (
-          <RegionHeader
-            region={section.region}
-            isExpanded={expandedSections.includes(section.regionId)}
-            onPress={() => handleToggle(section.regionId)}
-          />
+          isSearching ? (
+            <RegionHeader
+              region={section.region}
+              isExpanded={true}
+              onPress={() => {}}
+            />
+          ) : (
+            <RegionHeader
+              region={section.region}
+              isExpanded={expandedSections.includes(section.regionId)}
+              onPress={() => handleToggle(section.regionId)}
+            />
+          )
         )}
       />
 

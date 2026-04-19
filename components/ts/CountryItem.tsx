@@ -1,15 +1,13 @@
 import { memo } from 'react';
-import { View, Pressable } from 'react-native';
+import { View } from 'react-native';
 import { PickerInfluence } from '~/components/partials';
 import { Text } from '~/components/ui';
 import { cn } from '~/lib/cn';
 import { useAppStore } from '~/store';
 import { CountryType, PowerType } from '@tdataroot/tst-domain';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const CountryItemComponent = ({ country }: { country: CountryType }) => {
   const setInfluence = useAppStore((state) => state.setInfluence);
-  const toggleBattleground = useAppStore((state) => state.toggleBattleground);
 
   return (
     <View className="flex-row items-center justify-center gap-6 p-2">
@@ -45,28 +43,7 @@ const CountryItemComponent = ({ country }: { country: CountryType }) => {
             />
           ))}
         </View>
-        {country.name === 'Taiwan' && (
-          <Pressable
-            onPress={() => toggleBattleground(country.name)}
-            className={cn(
-              'mt-2 flex-row items-center gap-1 rounded-full px-2 py-0.5',
-              country.isTempBattleground ? 'bg-orange-500' : 'bg-gray-400/30'
-            )}>
-            <MaterialCommunityIcons
-              name="sword-cross"
-              size={12}
-              color={country.isTempBattleground ? '#fff' : '#9ca3af'}
-            />
-            <Text
-              variant={'label'}
-              className={cn(
-                'text-xs',
-                country.isTempBattleground ? 'text-white' : 'text-gray-400'
-              )}>
-              Battleground
-            </Text>
-          </Pressable>
-        )}
+        {/* Taiwan battleground toggle spostato in CardOptionsPanel */}
       </View>
 
       <PickerInfluence

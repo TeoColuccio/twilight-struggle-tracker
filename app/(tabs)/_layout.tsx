@@ -37,7 +37,8 @@ export default function TabLayout() {
   // } as TabsProps;
 
   return (
-    <Tabs>
+    // Tab bar nascosta temporaneamente (schermata singola). Rimuovere tabBarStyle quando si aggiungono altre tab.
+    <Tabs screenOptions={{ tabBarStyle: { display: 'none' } }}>
       <Tabs.Screen name="index" options={INDEX_OPTIONS} />
       {/* <Tabs.Screen name="two" options={DONATE_OPTIONS} /> */}
     </Tabs>
