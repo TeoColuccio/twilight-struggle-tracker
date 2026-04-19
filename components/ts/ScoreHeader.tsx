@@ -1,4 +1,5 @@
-import { View, Vibration, Pressable } from 'react-native';
+import { useRef, useEffect } from 'react';
+import { View, Vibration, TouchableOpacity } from 'react-native';
 import { Text } from '~/components/ui';
 import { useAppStore } from '~/store';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +13,39 @@ export const ScoreHeader = () => {
   const isURSS = currentScore < 0;
   const scoreColor = isUSA ? 'text-blue-400' : isURSS ? 'text-red-400' : 'text-foreground';
   const winner = isUSA ? 'USA' : isURSS ? 'URSS' : null;
+
+  const usaTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const usaInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+  const urssTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const urssInterval = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (usaTimeout.current) clearTimeout(usaTimeout.current);
+      if (usaInterval.current) clearInterval(usaInterval.current);
+      if (urssTimeout.current) clearTimeout(urssTimeout.current);
+      if (urssInterval.current) clearInterval(urssInterval.current);
+    };
+  }, []);
+
+  const startRepeating = (
+    handler: () => void,
+    timeoutRef: { current: ReturnType<typeof setTimeout> | null },
+    intervalRef: { current: ReturnType<typeof setInterval> | null }
+  ) => {
+    handler();
+    timeoutRef.current = setTimeout(() => {
+      intervalRef.current = setInterval(() => { handler(); }, 120);
+    }, 400);
+  };
+
+  const stopRepeating = (
+    timeoutRef: { current: ReturnType<typeof setTimeout> | null },
+    intervalRef: { current: ReturnType<typeof setInterval> | null }
+  ) => {
+    if (timeoutRef.current) { clearTimeout(timeoutRef.current); timeoutRef.current = null; }
+    if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; }
+  };
 
   return (
     <View className="mb-4 overflow-hidden rounded-2xl border border-border bg-card">
@@ -43,22 +77,24 @@ export const ScoreHeader = () => {
 
         <View className="flex-row gap-2">
           {/* +1 USA: score sale */}
-          <Pressable
-            onPress={() => { Vibration.vibrate(20); updateCurrentScore(1); }}
-            style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPressIn={() => startRepeating(() => { Vibration.vibrate(20); updateCurrentScore(1); }, usaTimeout, usaInterval)}
+            onPressOut={() => stopRepeating(usaTimeout, usaInterval)}
             className="w-16 items-center justify-center rounded-xl border border-blue-500/40 bg-blue-500/10 py-2">
             <Text variant="label" weight="bold" className="text-blue-400">+1</Text>
             <Text variant="label" className="text-blue-400/70">USA</Text>
-          </Pressable>
+          </TouchableOpacity>
 
           {/* +1 URSS: score scende */}
-          <Pressable
-            onPress={() => { Vibration.vibrate(20); updateCurrentScore(-1); }}
-            style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPressIn={() => startRepeating(() => { Vibration.vibrate(20); updateCurrentScore(-1); }, urssTimeout, urssInterval)}
+            onPressOut={() => stopRepeating(urssTimeout, urssInterval)}
             className="w-16 items-center justify-center rounded-xl border border-red-500/40 bg-red-500/10 py-2">
             <Text variant="label" weight="bold" className="text-red-400">+1</Text>
             <Text variant="label" className="text-red-400/70">URSS</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
