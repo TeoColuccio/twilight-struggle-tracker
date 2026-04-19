@@ -37,7 +37,9 @@
         {
           "launchMode": "most-recent"
         }
-      ]
+      ],
+      "expo-localization",
+      "expo-build-properties"
     ],
     "experiments": {
       "typedRoutes": true
