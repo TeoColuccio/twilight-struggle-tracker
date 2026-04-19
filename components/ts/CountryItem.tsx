@@ -4,7 +4,7 @@ import { PickerInfluence } from '~/components/partials';
 import { Text } from '~/components/ui';
 import { cn } from '~/lib/cn';
 import { useAppStore } from '~/store';
-import { CountryType, PowerType } from '@fzt/tst-domain';
+import { CountryType, PowerType } from '@tdataroot/tst-domain';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const CountryItemComponent = ({ country }: { country: CountryType }) => {
