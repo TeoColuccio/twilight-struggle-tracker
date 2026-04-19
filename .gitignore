@@ -3,8 +3,6 @@
 # dependencies
 node_modules/
 
-.npmrc
-
 # Expo
 .expo/
 dist/
@@ -33,8 +31,8 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
 .env*.local
-.npmrc
 
 # typescript
 *.tsbuildinfo

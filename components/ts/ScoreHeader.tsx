@@ -1,5 +1,5 @@
-import { View, Vibration } from 'react-native';
-import { Text, Stepper } from '~/components/ui';
+import { View, Vibration, Pressable } from 'react-native';
+import { Text } from '~/components/ui';
 import { useAppStore } from '~/store';
 import { useTranslation } from 'react-i18next';
 
@@ -41,20 +41,25 @@ export const ScoreHeader = () => {
           </View>
         </View>
 
-        <Stepper
-          minusButton={{
-            onPress: () => {
-              Vibration.vibrate(20);
-              updateCurrentScore(-1);
-            },
-          }}
-          plusButton={{
-            onPress: () => {
-              Vibration.vibrate(20);
-              updateCurrentScore(1);
-            },
-          }}
-        />
+        <View className="flex-row gap-2">
+          {/* +1 USA: score sale */}
+          <Pressable
+            onPress={() => { Vibration.vibrate(20); updateCurrentScore(1); }}
+            style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
+            className="w-16 items-center justify-center rounded-xl border border-blue-500/40 bg-blue-500/10 py-2">
+            <Text variant="label" weight="bold" className="text-blue-400">+1</Text>
+            <Text variant="label" className="text-blue-400/70">USA</Text>
+          </Pressable>
+
+          {/* +1 URSS: score scende */}
+          <Pressable
+            onPress={() => { Vibration.vibrate(20); updateCurrentScore(-1); }}
+            style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
+            className="w-16 items-center justify-center rounded-xl border border-red-500/40 bg-red-500/10 py-2">
+            <Text variant="label" weight="bold" className="text-red-400">+1</Text>
+            <Text variant="label" className="text-red-400/70">URSS</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );

@@ -1,4 +1,4 @@
-import { View, Switch, Pressable, Modal, Animated, Platform, useWindowDimensions } from 'react-native';
+import { View, Pressable, Modal, Animated } from 'react-native';
 import { Text, Icon } from '~/components/ui';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '~/store';
@@ -56,16 +56,13 @@ export const SettingsModal = ({ visible, onClose }: Props) => {
     setDropdownOpen(false);
   };
 
-  const currentLabel = LANGUAGE_ITEMS.find((item) => item.value === i18n.language)?.label
-    ?? LANGUAGE_ITEMS[0].label;
+  const currentLabel =
+    LANGUAGE_ITEMS.find((item) => item.value === i18n.language)?.label ?? LANGUAGE_ITEMS[0].label;
 
   return (
     <Modal transparent visible={visible} animationType="none" onRequestClose={onClose}>
       {/* Backdrop */}
-      <Pressable
-        style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' }}
-        onPress={onClose}
-      />
+      <Pressable style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)' }} onPress={onClose} />
 
       {/* Panel slides in from top */}
       <Animated.View
@@ -114,16 +111,31 @@ export const SettingsModal = ({ visible, onClose }: Props) => {
           </View> */}
 
           {/* Language picker */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 12, borderBottomWidth: 1, borderColor: colors.grey4, zIndex: 10 }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingVertical: 12,
+              borderBottomWidth: 1,
+              borderColor: colors.grey4,
+              zIndex: 10,
+            }}>
             <Text variant="body">{t('ui.language')}</Text>
 
             <View>
               <Pressable
                 onPress={() => setDropdownOpen((v) => !v)}
                 style={{
-                  flexDirection: 'row', alignItems: 'center', gap: 8,
-                  borderRadius: 8, borderWidth: 1, borderColor: colors.grey4,
-                  backgroundColor: colors.card, paddingHorizontal: 12, paddingVertical: 8,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 8,
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: colors.grey4,
+                  backgroundColor: colors.card,
+                  paddingHorizontal: 12,
+                  paddingVertical: 8,
                 }}>
                 <Text variant="body">{currentLabel}</Text>
                 <Icon
@@ -135,23 +147,34 @@ export const SettingsModal = ({ visible, onClose }: Props) => {
               </Pressable>
 
               {dropdownOpen && (
-                <View style={{
-                  position: 'absolute', right: 0, top: 44,
-                  minWidth: 120, zIndex: 50,
-                  borderRadius: 8, borderWidth: 1, borderColor: colors.grey4,
-                  backgroundColor: colors.card, overflow: 'hidden',
-                }}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    top: 44,
+                    minWidth: 120,
+                    zIndex: 50,
+                    borderRadius: 8,
+                    borderWidth: 1,
+                    borderColor: colors.grey4,
+                    backgroundColor: colors.card,
+                    overflow: 'hidden',
+                  }}>
                   {LANGUAGE_ITEMS.map((item, index) => (
                     <Pressable
                       key={item.value}
                       onPress={() => handleLanguageChange(item.value)}
                       style={{
-                        paddingHorizontal: 16, paddingVertical: 12,
-                        backgroundColor: item.value === i18n.language ? colors.primary + '26' : 'transparent',
+                        paddingHorizontal: 16,
+                        paddingVertical: 12,
+                        backgroundColor:
+                          item.value === i18n.language ? colors.primary + '26' : 'transparent',
                         borderBottomWidth: index < LANGUAGE_ITEMS.length - 1 ? 1 : 0,
                         borderColor: colors.grey4,
                       }}>
-                      <Text variant="body" weight={item.value === i18n.language ? 'bold' : undefined}>
+                      <Text
+                        variant="body"
+                        weight={item.value === i18n.language ? 'bold' : undefined}>
                         {item.label}
                       </Text>
                     </Pressable>
@@ -162,9 +185,22 @@ export const SettingsModal = ({ visible, onClose }: Props) => {
           </View>
 
           {/* Stability display picker */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 12 }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingVertical: 12,
+            }}>
             <Text variant="body">{t('ui.stabilityDisplay')}</Text>
-            <View style={{ flexDirection: 'row', borderRadius: 8, borderWidth: 1, borderColor: colors.grey4, overflow: 'hidden' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                borderRadius: 8,
+                borderWidth: 1,
+                borderColor: colors.grey4,
+                overflow: 'hidden',
+              }}>
               {STABILITY_ITEMS.map((item, index) => {
                 const isSelected = stabilityDisplay === item.value;
                 return (
@@ -172,8 +208,11 @@ export const SettingsModal = ({ visible, onClose }: Props) => {
                     key={item.value}
                     onPress={() => setStabilityDisplay(item.value)}
                     style={{
-                      flexDirection: 'row', alignItems: 'center', gap: 6,
-                      paddingHorizontal: 14, paddingVertical: 8,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 6,
+                      paddingHorizontal: 14,
+                      paddingVertical: 8,
                       backgroundColor: isSelected ? colors.primary : 'transparent',
                       borderRightWidth: index < STABILITY_ITEMS.length - 1 ? 1 : 0,
                       borderColor: colors.grey4,
