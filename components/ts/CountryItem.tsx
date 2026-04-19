@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 const CountryItemComponent = ({ country }: { country: CountryType }) => {
   const setInfluence = useAppStore((state) => state.setInfluence);
+  const stabilityDisplay = useAppStore((state) => state.stabilityDisplay);
   const isBattleground = country.isBattleground || country.isTempBattleground;
   const { t } = useTranslation();
 
@@ -37,16 +38,23 @@ const CountryItemComponent = ({ country }: { country: CountryType }) => {
           className={cn('web:text-base', isBattleground ? 'text-violet-200' : 'text-foreground')}>
           {t('countries.' + country.name)}
         </Text>
-        <View className="mt-1 flex-row gap-1">
-          {Array.from({ length: country.stability }).map((_, i) => (
-            <View
-              key={i}
-              className={cn(
-                'h-1.5 w-1.5 web:h-2 web:w-2 rounded-full',
-                isBattleground ? 'bg-violet-400' : 'bg-muted-foreground'
-              )}
-            />
-          ))}
+        <View className="mt-1 flex-row gap-1 items-center">
+          {stabilityDisplay === 'dots'
+            ? Array.from({ length: country.stability }).map((_, i) => (
+                <View
+                  key={i}
+                  className={cn(
+                    'h-1.5 w-1.5 web:h-2 web:w-2 rounded-full',
+                    isBattleground ? 'bg-violet-400' : 'bg-muted-foreground'
+                  )}
+                />
+              ))
+            : <Text
+                variant="label"
+                className={cn(isBattleground ? 'text-violet-400' : 'text-muted-foreground')}>
+                {country.stability}
+              </Text>
+          }
         </View>
       </View>
 

@@ -5,16 +5,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type { TSTType, PowerType };
 
+export type StabilityDisplay = 'dots' | 'number';
+
 export type AppStore = {
   data: TSTType;
   showSEAsiaScore: boolean;
   language: string | null;
+  stabilityDisplay: StabilityDisplay;
   setInfluence: (countryName: string, side: PowerType, value: number) => void;
   clearInfluences: () => void;
   updateCurrentScore: (delta: number) => void;
   toggleBattleground: (countryName: string) => void;
   toggleSEAsiaScore: () => void;
   setLanguage: (lang: string) => void;
+  setStabilityDisplay: (mode: StabilityDisplay) => void;
 };
 
 export const useAppStore = create<AppStore>()(
@@ -23,6 +27,7 @@ export const useAppStore = create<AppStore>()(
       data: TSTCode.initData(),
       showSEAsiaScore: false,
       language: null,
+      stabilityDisplay: 'dots',
 
       setInfluence: (countryName, side, value) =>
         set((state) => ({ data: TSTCode.setInfluence(state.data, countryName, side, value) })),
@@ -39,11 +44,13 @@ export const useAppStore = create<AppStore>()(
         set((state) => ({ showSEAsiaScore: !state.showSEAsiaScore })),
 
       setLanguage: (lang) => set({ language: lang }),
+
+      setStabilityDisplay: (mode) => set({ stabilityDisplay: mode }),
     }),
     {
       name: 'appStore',
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: (state) => ({ data: state.data, showSEAsiaScore: state.showSEAsiaScore, language: state.language }),
+      partialize: (state) => ({ data: state.data, showSEAsiaScore: state.showSEAsiaScore, language: state.language, stabilityDisplay: state.stabilityDisplay }),
       onRehydrateStorage: () => (state) => {
         if (state?.language) {
           import('i18next').then(({ default: i18n }) => i18n.changeLanguage(state.language!));

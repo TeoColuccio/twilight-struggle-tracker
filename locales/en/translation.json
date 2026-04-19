@@ -109,6 +109,9 @@
         "points": "Points",
         "currentPoints": "Current Points:",
         "language": "Language",
+        "stabilityDisplay": "Stability display",
+        "stabilityDots": "Dots",
+        "stabilityNumber": "Number",
         "darkTheme": "Dark theme",
         "lightTheme": "Light theme"
     }

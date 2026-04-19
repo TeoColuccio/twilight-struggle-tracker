@@ -109,6 +109,9 @@
         "points": "Punti",
         "currentPoints": "Punti Attuali:",
         "language": "Lingua",
+        "stabilityDisplay": "Visualizza stabilità",
+        "stabilityDots": "Pallini",
+        "stabilityNumber": "Numero",
         "darkTheme": "Tema scuro",
         "lightTheme": "Tema chiaro"
     }
