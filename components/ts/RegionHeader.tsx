@@ -17,6 +17,7 @@ export const RegionHeader = ({ region, isExpanded, onPress }: RegionHeaderProps)
   const showSEAsiaScore = useAppStore((state) => state.showSEAsiaScore);
   const countriesByName = useAppStore((state) => state.data.countriesByName);
 
+  // TODO: da sostituire con la logica che sarà implementata nel dominio
   const seAsiaScore = useMemo(() => {
     if (!showSEAsiaScore || region.id !== 'Asia') return null;
     const seAsiaCountries = Object.values(countriesByName).filter((c) => c.isSEAsia);

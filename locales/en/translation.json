@@ -96,7 +96,8 @@
     },
     "ui": {
         "specialActions": "Special Actions",
-        "formosaResolution": "Formosa Resolution",
+        "formosanResolution": "Formosan Resolution",
+        "shuttleDiplomacy": "Shuttle Diplomacy",
         "seAsiaScore": "SE Asia Score",
         "settings": "Settings",
         "victoryPoints": "Victory Points",

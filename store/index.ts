@@ -10,6 +10,7 @@ export type StabilityDisplay = 'dots' | 'number';
 export type AppStore = {
   data: TSTType;
   showSEAsiaScore: boolean;
+  shuttleDiplomacy: boolean;
   language: string | null;
   stabilityDisplay: StabilityDisplay;
   setInfluence: (countryName: string, side: PowerType, value: number) => void;
@@ -17,6 +18,7 @@ export type AppStore = {
   updateCurrentScore: (delta: number) => void;
   toggleBattleground: (countryName: string) => void;
   toggleSEAsiaScore: () => void;
+  toggleShuttleDiplomacy: () => void;
   setLanguage: (lang: string) => void;
   setStabilityDisplay: (mode: StabilityDisplay) => void;
 };
@@ -26,6 +28,7 @@ export const useAppStore = create<AppStore>()(
     (set) => ({
       data: TSTCode.initData(),
       showSEAsiaScore: false,
+      shuttleDiplomacy: false,
       language: null,
       stabilityDisplay: 'dots',
 
@@ -43,6 +46,10 @@ export const useAppStore = create<AppStore>()(
       toggleSEAsiaScore: () =>
         set((state) => ({ showSEAsiaScore: !state.showSEAsiaScore })),
 
+      // TODO: chiamare la funzione del dominio per la Shuttle Diplomacy quando sarà implementata
+      toggleShuttleDiplomacy: () =>
+        set((state) => ({ shuttleDiplomacy: !state.shuttleDiplomacy })),
+
       setLanguage: (lang) => set({ language: lang }),
 
       setStabilityDisplay: (mode) => set({ stabilityDisplay: mode }),
@@ -50,7 +57,7 @@ export const useAppStore = create<AppStore>()(
     {
       name: 'appStore',
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: (state) => ({ data: state.data, showSEAsiaScore: state.showSEAsiaScore, language: state.language, stabilityDisplay: state.stabilityDisplay }),
+      partialize: (state) => ({ data: state.data, showSEAsiaScore: state.showSEAsiaScore, roamingDiplomacy: state.shuttleDiplomacy, language: state.language, stabilityDisplay: state.stabilityDisplay }),
       onRehydrateStorage: () => (state) => {
         if (state?.language) {
           import('i18next').then(({ default: i18n }) => i18n.changeLanguage(state.language!));

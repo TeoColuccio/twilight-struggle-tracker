@@ -96,7 +96,8 @@
     },
     "ui": {
         "specialActions": "Azioni speciali",
-        "formosaResolution": "Risoluzione di Formosa",
+        "formosanResolution": "Risoluzione di Formosa",
+        "shuttleDiplomacy": "Diplomazia itinerante",
         "seAsiaScore": "Punteggio Sudest Asiatico",
         "settings": "Impostazioni",
         "victoryPoints": "Punti Vittoria",
