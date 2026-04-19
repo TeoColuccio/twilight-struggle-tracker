@@ -1,10 +1,12 @@
 import { View, Vibration } from 'react-native';
 import { Text, Stepper } from '~/components/ui';
 import { useAppStore } from '~/store';
+import { useTranslation } from 'react-i18next';
 
 export const ScoreHeader = () => {
   const currentScore = useAppStore((state) => state.data.currentScore);
   const updateCurrentScore = useAppStore((state) => state.updateCurrentScore);
+  const { t } = useTranslation();
 
   const isUSA = currentScore > 0;
   const isURSS = currentScore < 0;
@@ -26,7 +28,7 @@ export const ScoreHeader = () => {
       {/* Score row */}
       <View className="flex-row items-center justify-between px-4 py-4">
         <View>
-          <Text variant="label" className="text-muted-foreground mb-1">Punti Vittoria</Text>
+          <Text variant="label" className="text-muted-foreground mb-1">{t('ui.victoryPoints')}</Text>
           <View className="flex-row items-baseline gap-2">
             <Text variant="display" className={scoreColor}>
               {Math.abs(currentScore)}
@@ -34,7 +36,7 @@ export const ScoreHeader = () => {
             {winner ? (
               <Text variant="body" weight="bold" className={scoreColor}>{winner}</Text>
             ) : (
-              <Text variant="label" className="text-muted-foreground">Pareggio</Text>
+              <Text variant="label" className="text-muted-foreground">{t('ui.draw')}</Text>
             )}
           </View>
         </View>

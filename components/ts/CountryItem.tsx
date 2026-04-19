@@ -5,10 +5,12 @@ import { Text } from '~/components/ui';
 import { cn } from '~/lib/cn';
 import { useAppStore } from '~/store';
 import { CountryType, PowerType } from '@tdataroot/tst-domain';
+import { useTranslation } from 'react-i18next';
 
 const CountryItemComponent = ({ country }: { country: CountryType }) => {
   const setInfluence = useAppStore((state) => state.setInfluence);
   const isBattleground = country.isBattleground || country.isTempBattleground;
+  const { t } = useTranslation();
 
   return (
     <View className="flex-row items-center justify-center gap-3 web:gap-6 px-2 py-1.5">
@@ -33,7 +35,7 @@ const CountryItemComponent = ({ country }: { country: CountryType }) => {
           adjustsFontSizeToFit
           minimumFontScale={0.1}
           className={cn('web:text-base', isBattleground ? 'text-violet-200' : 'text-foreground')}>
-          {country.name}
+          {t('countries.' + country.name)}
         </Text>
         <View className="mt-1 flex-row gap-1">
           {Array.from({ length: country.stability }).map((_, i) => (

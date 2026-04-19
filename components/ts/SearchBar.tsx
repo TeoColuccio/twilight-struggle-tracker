@@ -1,6 +1,7 @@
 import { View, TextInput, Pressable } from 'react-native';
 import { Icon } from '~/components/ui';
 import { useColorScheme } from '~/lib/useColorScheme';
+import { useTranslation } from 'react-i18next';
 
 interface SearchBarProps {
   value: string;
@@ -9,6 +10,7 @@ interface SearchBarProps {
 
 export const SearchBar = ({ value, onChangeText }: SearchBarProps) => {
   const { colors } = useColorScheme();
+  const { t } = useTranslation();
   const hasValue = value.trim().length > 0;
 
   return (
@@ -18,7 +20,7 @@ export const SearchBar = ({ value, onChangeText }: SearchBarProps) => {
         className="flex-1 text-sm web:text-base text-foreground"
         // @ts-ignore – outline non esiste nei tipi RN ma è valido su web
         style={{ outline: 'none' }}
-        placeholder="Cerca stato..."
+        placeholder={t('ui.searchPlaceholder')}
         placeholderTextColor={colors.grey2}
         value={value}
         onChangeText={onChangeText}

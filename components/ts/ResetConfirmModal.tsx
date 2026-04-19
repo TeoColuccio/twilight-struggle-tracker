@@ -3,6 +3,7 @@ import { BottomSheetView } from '@gorhom/bottom-sheet';
 import { SheetModal } from '~/components/partials';
 import { Text, Icon } from '~/components/ui';
 import { Button } from '~/components/nativewindui/Button';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   visible: boolean;
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export const ResetConfirmModal = ({ visible, onConfirm, onClose }: Props) => {
+  const { t } = useTranslation();
+
   const handleConfirm = () => {
     onConfirm();
     onClose();
@@ -23,21 +26,21 @@ export const ResetConfirmModal = ({ visible, onConfirm, onClose }: Props) => {
           <View className="rounded-2xl bg-red-500/15 p-5">
             <Icon type="MaterialCommunityIcons" name="alert-circle-outline" size="display" color="#ef4444" />
           </View>
-          <Text variant="heading" weight="bold">Reset influenze</Text>
+          <Text variant="heading" weight="bold">{t('ui.resetInfluences')}</Text>
           <Text variant="body" className="text-center text-muted-foreground">
-            Sei sicuro di voler azzerare tutte le influenze?{`\n`}L'operazione non è reversibile.
+            {t('ui.resetConfirmMessage')}
           </Text>
         </View>
 
         <View className="flex-row gap-3 justify-center">
           <Button variant="secondary" size="lg" className="w-36" onPress={onClose}>
             <Text variant="label" className="text-center">
-              Annulla
+              {t('ui.cancel')}
             </Text>
           </Button>
           <Button size="lg" className="w-36 bg-red-500" onPress={handleConfirm}>
             <Text variant="label" className="text-white text-center">
-              Reset
+              {t('ui.reset')}
             </Text>
           </Button>
         </View>
