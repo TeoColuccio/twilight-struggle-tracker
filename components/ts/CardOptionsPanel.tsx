@@ -9,7 +9,7 @@ export const CardOptionsPanel = () => {
   const { colors } = useColorScheme();
 
   return (
-    <View className="mb-3 rounded-2xl border border-border bg-card px-4 py-3 gap-3">
+    <View className="mb-3 rounded-xl border border-border bg-card px-4 py-3 gap-3">
       <Text variant="label" className="text-muted-foreground">Carte speciali</Text>
 
       <View className="flex-row items-center justify-between">
@@ -21,7 +21,7 @@ export const CardOptionsPanel = () => {
           value={isTaiwanBattleground}
           onValueChange={() => toggleBattleground('Taiwan')}
           trackColor={{ false: colors.grey4, true: colors.primary }}
-          thumbColor={colors.white}
+          thumbColor="white"
         />
       </View>
     </View>

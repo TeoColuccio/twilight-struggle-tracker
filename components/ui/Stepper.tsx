@@ -87,7 +87,7 @@ function Stepper({ className, minusButton, plusButton, ...props }: StepperProps)
   return (
     <View
       className={cn(
-        'flex-row items-center overflow-hidden rounded-full border border-border',
+        'flex-row items-center overflow-hidden rounded-xl border border-border bg-card',
         className
       )}
       {...props}>
@@ -95,17 +95,17 @@ function Stepper({ className, minusButton, plusButton, ...props }: StepperProps)
         {...(minusRest as PressableProps)}
         onPressIn={handleMinusPressIn}
         onPressOut={handleMinusPressOut}
-        className={cn('h-8 justify-center px-5', minusButton?.className)}>
+        className={cn('h-10 justify-center px-5', minusButton?.className)}>
         <Icon name="minus" type="MaterialCommunityIcons" size={20} color={colors.foreground} />
       </Pressable>
 
-      <View className="h-8 w-px rounded-full bg-border" />
+      <View className="h-10 w-px bg-border" />
 
       <Pressable
         {...(plusRest as PressableProps)}
         onPressIn={handlePlusPressIn}
         onPressOut={handlePlusPressOut}
-        className={cn('h-8 justify-center px-5', plusButton?.className)}>
+        className={cn('h-10 justify-center px-5', plusButton?.className)}>
         <Icon name="plus" type="MaterialCommunityIcons" size={20} color={colors.foreground} />
       </Pressable>
     </View>

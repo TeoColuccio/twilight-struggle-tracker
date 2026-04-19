@@ -20,11 +20,11 @@ export const ResetConfirmModal = ({ visible, onConfirm, onClose }: Props) => {
     <SheetModal visible={visible} onClose={onClose} enableDynamicSizing>
       <BottomSheetView style={{ paddingBottom: Platform.select({ web: 120, default: 96 }) }} className="px-6 pt-4">
         <View className="items-center gap-3 pb-6">
-          <View className="rounded-full bg-red-500/20 p-4">
+          <View className="rounded-2xl bg-red-500/15 p-5">
             <Icon type="MaterialCommunityIcons" name="alert-circle-outline" size="display" color="#ef4444" />
           </View>
-          <Text variant="heading">Reset influenze</Text>
-          <Text variant="body" className="text-center">
+          <Text variant="heading" weight="bold">Reset influenze</Text>
+          <Text variant="body" className="text-center text-muted-foreground">
             Sei sicuro di voler azzerare tutte le influenze?{`\n`}L'operazione non è reversibile.
           </Text>
         </View>

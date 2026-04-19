@@ -8,14 +8,9 @@ interface TrackerHeaderActionsProps {
 }
 
 export const TrackerHeaderActions = ({ onResetPress, onSettingsPress }: TrackerHeaderActionsProps) => (
-  <View className="mr-6 flex-row gap-4">
-    {/* <Button variant="plain" className="w-fit" size={'icon'} onPress={onSettingsPress}>
-      <Icon type="MaterialCommunityIcons" name="cog" />
-    </Button> */}
-    
-    <Button variant="plain" className="w-fit" size={'icon'} onPress={onResetPress}>
-      <Icon type="MaterialCommunityIcons" name="trash-can" color="#ef4444" />
+  <View className="mr-4 flex-row gap-2">
+    <Button variant="plain" className="rounded-full w-9 h-9 items-center justify-center" size={'icon'} onPress={onResetPress}>
+      <Icon type="MaterialCommunityIcons" name="trash-can-outline" size={22} color="#ef4444" />
     </Button>
-
   </View>
 );

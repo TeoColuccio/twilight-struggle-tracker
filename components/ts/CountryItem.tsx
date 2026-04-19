@@ -8,11 +8,12 @@ import { CountryType, PowerType } from '@tdataroot/tst-domain';
 
 const CountryItemComponent = ({ country }: { country: CountryType }) => {
   const setInfluence = useAppStore((state) => state.setInfluence);
+  const isBattleground = country.isBattleground || country.isTempBattleground;
 
   return (
-    <View className="flex-row items-center justify-center gap-6 p-2">
+    <View className="flex-row items-center justify-center gap-3 web:gap-6 px-2 py-1.5">
       <PickerInfluence
-        className={country.controlledBy === PowerType.USA ? 'bg-blue-500' : undefined}
+        className={country.controlledBy === PowerType.USA ? 'bg-blue-500/80 border-blue-400' : undefined}
         max={30}
         min={0}
         value={country.blueInfluence}
@@ -21,15 +22,17 @@ const CountryItemComponent = ({ country }: { country: CountryType }) => {
 
       <View
         className={cn(
-          'w-28 web:w-44 items-center justify-center rounded-2xl p-2 web:p-3',
-          country.isBattleground || country.isTempBattleground ? 'bg-purple-950' : 'bg-yellow-100'
+          'w-28 web:w-44 items-center justify-center rounded-xl border p-2 web:p-3',
+          isBattleground
+            ? 'border-violet-500/40 bg-violet-950/70'
+            : 'border-border bg-card'
         )}>
         <Text
           variant={'label'}
           numberOfLines={1}
           adjustsFontSizeToFit
           minimumFontScale={0.1}
-          className={cn('web:text-base', country.isBattleground || country.isTempBattleground ? 'text-white' : 'text-gray-900')}>
+          className={cn('web:text-base', isBattleground ? 'text-violet-200' : 'text-foreground')}>
           {country.name}
         </Text>
         <View className="mt-1 flex-row gap-1">
@@ -37,17 +40,16 @@ const CountryItemComponent = ({ country }: { country: CountryType }) => {
             <View
               key={i}
               className={cn(
-                'h-2 w-2 web:h-3 web:w-3 rounded-full',
-                country.isBattleground || country.isTempBattleground ? 'bg-purple-300' : 'bg-amber-500'
+                'h-1.5 w-1.5 web:h-2 web:w-2 rounded-full',
+                isBattleground ? 'bg-violet-400' : 'bg-muted-foreground'
               )}
             />
           ))}
         </View>
-        {/* Taiwan battleground toggle spostato in CardOptionsPanel */}
       </View>
 
       <PickerInfluence
-        className={country.controlledBy === PowerType.URSS ? 'bg-red-500' : undefined}
+        className={country.controlledBy === PowerType.URSS ? 'bg-red-500/80 border-red-400' : undefined}
         max={30}
         min={0}
         value={country.redInfluence}

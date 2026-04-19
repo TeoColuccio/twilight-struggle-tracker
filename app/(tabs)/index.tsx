@@ -65,7 +65,7 @@ export default function Index() {
   );
 
   return (
-    <View className="flex-1 px-4 web-content">
+    <View className="flex-1 px-3 web-content">
       <SectionList
         ListHeaderComponent={
           <>
@@ -79,6 +79,7 @@ export default function Index() {
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => <CountryItem country={item} />}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingTop: 12, paddingBottom: 24 }}
         renderSectionHeader={({ section }) => (
           isSearching ? (
             <RegionHeader

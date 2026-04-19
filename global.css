@@ -51,98 +51,98 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --background: 0 0 0;
-      --foreground: 255 255 255;
-      --card: 21 21 24;
-      --card-foreground: 255 255 255;
-      --popover: 40 40 42;
-      --popover-foreground: 255 255 255;
-      --primary: 44 176 244;
+      --background: 8 12 22;
+      --foreground: 220 226 255;
+      --card: 15 21 40;
+      --card-foreground: 220 226 255;
+      --popover: 22 30 56;
+      --popover-foreground: 220 226 255;
+      --primary: 96 165 250;
       --primary-foreground: 255 255 255;
       --secondary: 244 112 44;
       --secondary-foreground: 255 255 255;
-      --muted: 193 198 215;
-      --muted-foreground: 142 142 147;
+      --muted: 40 52 85;
+      --muted-foreground: 100 115 155;
       --accent: 255 52 95;
       --accent-foreground: 255 255 255;
-      --destructive: 188 47 47;
+      --destructive: 239 68 68;
       --destructive-foreground: 255 255 255;
       --success: 74, 222, 128;
       --success-foreground: 255 255 255;
-      --border: 40 40 42;
-      --input: 55 55 57;
-      --ring: 40 40 42;
+      --border: 28 40 70;
+      --input: 28 40 70;
+      --ring: 28 40 70;
 
-      --android-background: 0 0 0;
-      --android-foreground: 255 255 255;
-      --android-card: 16 19 27;
-      --android-card-foreground: 224 226 237;
-      --android-popover: 39 42 50;
-      --android-popover-foreground: 224 226 237;
-      --android-primary: 44 176 244;
+      --android-background: 8 12 22;
+      --android-foreground: 220 226 255;
+      --android-card: 15 21 40;
+      --android-card-foreground: 220 226 255;
+      --android-popover: 22 30 56;
+      --android-popover-foreground: 220 226 255;
+      --android-primary: 96 165 250;
       --android-primary-foreground: 255 255 255;
       --android-secondary: 244 112 44;
       --android-secondary-foreground: 189 209 255;
-      --android-muted: 193 198 215;
-      --android-muted-foreground: 139 144 160;
-      --android-accent: 83 0 111;
-      --android-accent-foreground: 238 177 255;
-      --android-destructive: 188 47 47;
+      --android-muted: 40 52 85;
+      --android-muted-foreground: 100 115 155;
+      --android-accent: 255 52 95;
+      --android-accent-foreground: 255 255 255;
+      --android-destructive: 239 68 68;
       --android-destructive-foreground: 255 255 255;
       --android-success: 74, 222, 128;
       --android-success-foreground: 255 255 255;
-      --android-border: 39 42 50;
-      --android-input: 55 55 57;
-      --android-ring: 39 42 50;
+      --android-border: 28 40 70;
+      --android-input: 28 40 70;
+      --android-ring: 28 40 70;
     }
   }
 }
 
 /* Class-based dark mode (NativeWind darkMode: 'class') */
 .dark {
-  --background: 0 0 0;
-  --foreground: 255 255 255;
-  --card: 21 21 24;
-  --card-foreground: 255 255 255;
-  --popover: 40 40 42;
-  --popover-foreground: 255 255 255;
-  --primary: 44 176 244;
+  --background: 8 12 22;
+  --foreground: 220 226 255;
+  --card: 15 21 40;
+  --card-foreground: 220 226 255;
+  --popover: 22 30 56;
+  --popover-foreground: 220 226 255;
+  --primary: 96 165 250;
   --primary-foreground: 255 255 255;
   --secondary: 244 112 44;
   --secondary-foreground: 255 255 255;
-  --muted: 193 198 215;
-  --muted-foreground: 142 142 147;
+  --muted: 40 52 85;
+  --muted-foreground: 100 115 155;
   --accent: 255 52 95;
   --accent-foreground: 255 255 255;
-  --destructive: 188 47 47;
+  --destructive: 239 68 68;
   --destructive-foreground: 255 255 255;
   --success: 74, 222, 128;
   --success-foreground: 255 255 255;
-  --border: 40 40 42;
-  --input: 55 55 57;
-  --ring: 40 40 42;
+  --border: 28 40 70;
+  --input: 28 40 70;
+  --ring: 28 40 70;
 
-  --android-background: 0 0 0;
-  --android-foreground: 255 255 255;
-  --android-card: 16 19 27;
-  --android-card-foreground: 224 226 237;
-  --android-popover: 39 42 50;
-  --android-popover-foreground: 224 226 237;
-  --android-primary: 44 176 244;
+  --android-background: 8 12 22;
+  --android-foreground: 220 226 255;
+  --android-card: 15 21 40;
+  --android-card-foreground: 220 226 255;
+  --android-popover: 22 30 56;
+  --android-popover-foreground: 220 226 255;
+  --android-primary: 96 165 250;
   --android-primary-foreground: 255 255 255;
   --android-secondary: 244 112 44;
   --android-secondary-foreground: 189 209 255;
-  --android-muted: 193 198 215;
-  --android-muted-foreground: 139 144 160;
-  --android-accent: 83 0 111;
-  --android-accent-foreground: 238 177 255;
-  --android-destructive: 188 47 47;
+  --android-muted: 40 52 85;
+  --android-muted-foreground: 100 115 155;
+  --android-accent: 255 52 95;
+  --android-accent-foreground: 255 255 255;
+  --android-destructive: 239 68 68;
   --android-destructive-foreground: 255 255 255;
   --android-success: 74, 222, 128;
   --android-success-foreground: 255 255 255;
-  --android-border: 39 42 50;
-  --android-input: 55 55 57;
-  --android-ring: 39 42 50;
+  --android-border: 28 40 70;
+  --android-input: 28 40 70;
+  --android-ring: 28 40 70;
 }
 
 @media (min-width: 768px) {

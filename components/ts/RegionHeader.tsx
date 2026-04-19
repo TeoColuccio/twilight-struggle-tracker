@@ -19,23 +19,20 @@ export const RegionHeader = ({ region, isExpanded, onPress }: RegionHeaderProps)
 
   const { potentialScore } = region;
   const displayScore = Math.abs(potentialScore);
-  let bgColor = '';
-  if (potentialScore > 0) bgColor = 'bg-blue-500';
-  else if (potentialScore < 0) bgColor = 'bg-red-500';
-  const textColor = bgColor ? 'text-white' : 'text-foreground';
+  const badgeBg = potentialScore > 0 ? 'bg-blue-500' : potentialScore < 0 ? 'bg-red-500' : 'bg-border';
 
   return (
-    <View className="mb-2 rounded-2xl bg-card">
-      <Pressable className="flex-row items-center justify-between p-4" onPress={onPress}>
+    <View className="mb-2 overflow-hidden rounded-2xl border border-border bg-card">
+      <Pressable className="flex-row items-center justify-between px-4 py-3" onPress={onPress}>
         <View
-          className={`h-8 w-8 items-center justify-center rounded-full ${bgColor}`}
+          className={`h-8 w-8 items-center justify-center rounded-full ${badgeBg}`}
           style={{ overflow: 'hidden' }}>
-          <Text variant="heading" className={textColor}>
+          <Text variant="label" weight="bold" className="text-white">
             {displayScore}
           </Text>
         </View>
 
-        <Text variant="heading">{t(region.name)}</Text>
+        <Text variant="body" weight="bold">{t(region.name)}</Text>
 
         <Animated.View style={animatedStyle}>
           <Icon name="arrow-right" />

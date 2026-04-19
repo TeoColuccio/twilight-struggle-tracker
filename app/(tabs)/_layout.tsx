@@ -1,7 +1,9 @@
 import { Tabs, Href } from 'expo-router';
+import { View } from 'react-native';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { TabBarIcon } from '~/components/partials';
+import { Icon, Text } from '~/components/ui';
 
 type TabsProps = BottomTabNavigationOptions & {
   href?: Href | null;
@@ -17,15 +19,26 @@ export default function TabLayout() {
     headerShown: true,
     headerShadowVisible: false,
     headerTitleContainerStyle: { marginLeft: 24 },
+    headerTitleStyle: {
+      fontSize: 18,
+      fontWeight: '700' as const,
+      letterSpacing: 0.5,
+    },
   } as TabsProps;
 
   const INDEX_OPTIONS = {
     ...SCREEN_OPTIONS,
-    title: 'TS Tracker',
+    headerTitle: () => (
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+        <Icon type="MaterialCommunityIcons" name="radioactive" size={22} color={colors.primary} />
+        <Text variant="body" weight="bold" style={{ color: colors.foreground, letterSpacing: 0.5 }}>
+          TS Tracker
+        </Text>
+      </View>
+    ),
     tabBarIcon: ({ focused, size }) => (
       <TabBarIcon type="FontAwesome5" name="calculator" active={focused} />
     ),
-
   } as TabsProps;
 
   // const DONATE_OPTIONS = {

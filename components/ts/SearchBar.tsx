@@ -12,10 +12,10 @@ export const SearchBar = ({ value, onChangeText }: SearchBarProps) => {
   const hasValue = value.trim().length > 0;
 
   return (
-    <View className="flex-row items-center rounded-2xl border border-border bg-card px-3 mb-3 h-10 web:h-12">
+    <View className="flex-row items-center rounded-xl border border-border bg-card px-3 mb-3 h-11 web:h-12 gap-2">
       <Icon type="MaterialCommunityIcons" name="magnify" size="body" color={colors.grey2} />
       <TextInput
-        className="flex-1 ml-2 text-sm web:text-base text-foreground"
+        className="flex-1 text-sm web:text-base text-foreground"
         // @ts-ignore – outline non esiste nei tipi RN ma è valido su web
         style={{ outline: 'none' }}
         placeholder="Cerca stato..."
