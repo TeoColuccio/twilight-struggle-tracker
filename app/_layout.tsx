@@ -1,4 +1,5 @@
 import '../global.css';
+import '../i18n';
 import { ThemeProvider as NavThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';

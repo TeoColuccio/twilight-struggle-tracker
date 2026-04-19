@@ -2,6 +2,7 @@ import { View, Pressable } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { Icon, Text } from '~/components/ui';
 import { RegionType } from '@tdataroot/tst-domain';
+import { useTranslation } from 'react-i18next';
 
 interface RegionHeaderProps {
   region: RegionType;
@@ -10,6 +11,8 @@ interface RegionHeaderProps {
 }
 
 export const RegionHeader = ({ region, isExpanded, onPress }: RegionHeaderProps) => {
+  const { t } = useTranslation();
+
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ rotate: withTiming(isExpanded ? '90deg' : '0deg', { duration: 200 }) }],
   }));
@@ -24,13 +27,15 @@ export const RegionHeader = ({ region, isExpanded, onPress }: RegionHeaderProps)
   return (
     <View className="mb-2 rounded-2xl bg-card">
       <Pressable className="flex-row items-center justify-between p-4" onPress={onPress}>
-        <View className={`rounded-full w-8 h-8 items-center justify-center ${bgColor}`} style={{ overflow: 'hidden' }}>
+        <View
+          className={`h-8 w-8 items-center justify-center rounded-full ${bgColor}`}
+          style={{ overflow: 'hidden' }}>
           <Text variant="heading" className={textColor}>
             {displayScore}
           </Text>
         </View>
 
-        <Text variant="heading">{region.name}</Text>
+        <Text variant="heading">{t(region.name)}</Text>
 
         <Animated.View style={animatedStyle}>
           <Icon name="arrow-right" />
